@@ -20,8 +20,12 @@
 ##  This is BETA 6 of this application.
 
 
+'''a module gets a control when user interacts with applications'''
 class Event:
+    ''' general Event class, created to be inherited from,
+    like InterfaceClick'''
     def __init__(self, *args, **kwargs):
+        ''' gather info about an event'''
         print('created new event')
         print('args:', args)
         print('kwargs:', kwargs)
@@ -35,11 +39,14 @@ class Event:
         return 'it is an event'
 
 class InterfaceClick(Event):
+    ''' adapted version of Event '''
     def __init__(self, panel_name=None, click_coords=None):
         kwargs = {'panel_name':panel_name, 'click_coords':click_coords}
         Event.__init__(self, **kwargs)
 
         from Design import width
+
+        # what should happen after a click:
         if panel_name == 'StatusBar':
             print(panel_name)
             print(objects)
@@ -94,8 +101,10 @@ class InterfaceClick(Event):
 objects = {}
 
 def register(object, name):
+    ''' register an object in objects'''
     objects.update({name: object})
-        
+
+# that is how it looks:
 ##a = Event('click', 'mouse', area='define', part=2)
 ##Output:
 ##    args: ('click', 'mouse')

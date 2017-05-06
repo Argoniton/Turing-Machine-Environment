@@ -22,25 +22,25 @@
 
 # version beta 7.0
 # Design
-import Design # design has fonts colors end UI elements
+import Design # design has fonts colors and UI elements
 
-Window = Design.Window()
+Window = Design.Window() # create a window
 
-StatusBar = Design.StatusBar()
-StatusBar.pack()
+StatusBar = Design.StatusBar() # create a statusbar
+StatusBar.pack() # place it in Window
 
-SetupBar = Design.SetupBar()
-SetupBar.pack()
+SetupBar = Design.SetupBar() # create a setup bar
+SetupBar.pack() # place it in Window
 SetupBar.displayInstructions()
 
-RunBar = Design.RunBar()
-RunBar.pack()
+RunBar = Design.RunBar() # create a run button
+RunBar.pack() # place it in Window
 RunBar.displayInstructions()
 
-TuringMachineFrame = Design.TuringMachineFrame()
-TuringMachineFrame.pack()
+TuringMachineFrame = Design.TuringMachineFrame() # create a frame with machine
+TuringMachineFrame.pack()  # place it in Window
 
-Design.mainloop()
+Design.mainloop() # run a window
 
 # Copyright = Design.Copyright()
 

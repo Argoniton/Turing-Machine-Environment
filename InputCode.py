@@ -23,7 +23,9 @@
 import tkinter as tk
 
 class AskCodeWindow(tk.Tk):
+    ''' this window shows up when I click 'select a code' '''
     def __init__(self, *args, send=None, statusbar=None, machine=None, **kwargs):
+        # watch out 'send', it gets a path
         tk.Tk.__init__(self, *args,
                        className=' Imput Code', **kwargs)
         statusbar.changeStatus(1, 'not ready')
@@ -32,7 +34,7 @@ class AskCodeWindow(tk.Tk):
         
         entry = tk.Entry(self)
         entry.pack()
-        entry.insert(0, '/Users/argoniton/Desktop/addtiton of 2 numbers.turing')
+        entry.insert(0, 'addtiton of 2 numbers.turing')
         
         self.code = send
         
