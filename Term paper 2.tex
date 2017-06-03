@@ -14,7 +14,9 @@
 \usepackage{graphicx}
 \usepackage{amssymb}
 \newcommand\tab[1][-1em]{\hspace*{#1}}
+\newcommand\tb[1][10pt]{\hspace*{#1}}
 
+\def\mathbi#1{\textbf{\em #1}}
 \usepackage{listings}
 
 \usepackage{scrextend}
@@ -27,24 +29,30 @@
 \usepackage{amsthm}
 \newtheorem*{remark}{Remark}
 \newtheorem{definition}{Definition}[section]
+\newtheorem{idea}{Idea}[section]
+
 
 \title{Turing Machine}
 \author{Artemii Yanushevskyi}
-\date{}                                           % Activate to display a given date or no date
+\date{}
 
 \begin{document}
+
 \maketitle
 
-\abstract{The second half of twentieth century is characterized by a rapid bloom of technology. It was influenced primarily by mathematicians who tried to relate non-mathematical objects, such as mechanisms, with purely mathematical, like mathematical logic. Allan Turing was asked, what is a ‘mechanical’ process, he replied, it is the ’process’ which can be done by a machine. It is a reasonable answer, but how would we define a ‘machine’ then? Turing decided to elaborate such general notion of a machine. This contributed to the appearance of machine that we call in his name: Turing machine.}
+\begin{addmargin}[3em]{3em}
+\abstract{The second half of twentieth century is characterized by a rapid bloom of technology. It was influenced primarily by mathematicians who tried to relate non-mathematical objects, such as mechanisms, with purely mathematical, like mathematical logic. Allan Turing was asked, what is a 'mechanical' process, he replied, it is the 'process' which can be done by a machine. It is a reasonable answer, but how would we define a 'machine' then? Turing decided to elaborate such general notion of a machine. This contributed to the appearance of machine that we call in his name: Turing machine.}
+\end{addmargin}
 
 \section{Intuitive definition}
-\textbf{\large L}ets assume that we have a creature that can observe a single place on infinite tape. Every place has either 1 or 0 on it. This creature can move a tape to left or right. Additionally, the creature has a number of states, which include terminal state ‘$\mathrm{q}0$’.
+\textbf{\large L}ets assume that we have a creature that can observe a single place on infinite tape. Every place has either 1 or 0 on it. This creature can move a tape to left or right. Additionally, the creature has a number of states, which include terminal state '$\mathrm{q}0$'.
 
 We will call this \emph{Turing machine}.
 
 The input is a tape. Despite the tape is infinite, it should have just finite number of 1.
 We can represent each vector $x\in\mathbb{N}^k$ as a string of $k$ blocks with $(x_i+1)$ 1. Those blocks are separated with 0. 
- 
+
+ \vspace{5mm}
 \begin{addmargin}[3em]{3em}
 \tab
 \textsc{Example.} The vector $x=(3,\ 2,\ 1,\ 0)\in\mathbb{N}^4$ is represented on a tape
@@ -55,6 +63,7 @@ We can represent each vector $x\in\mathbb{N}^k$ as a string of $k$ blocks with $
 
 The machine performs basic operations: check a number on a tape, move left or right, and change its state. The rules which guide the machine is presented in a list of commands, which is called Turing code. What the creature will do next depends on two factors: what it sees on a tape at the moment and what state it has.
  
+ \vspace{5mm}
 \begin{addmargin}[3em]{3em}
 \tab
 \textsc{Example.} Now we will make a typical single step of the machine. After, we will write a command that corresponds to it. In case creature
@@ -92,14 +101,14 @@ The result line will consist of $(a+b+1)$ 1 in a single row, which represents $a
 \end{remark}
 
 \section{Mathematical definition}
-\textbf{\large T}he intuitive defintiton given above boils down to a specific set of functions. 
+\textbf{\large T}he intuitive definition given above boils down to a specific set of functions. 
 \begin{definition}
 Turing machine is a map
 $$ M:\{\mathrm{q}0,\ \dots\ ,\ \mathrm{q}n\} \times \{ 1,\ 0\} \rightarrow \{\mathrm{q}0,\ \dots\ ,\ \mathrm{q}n\} \times \{ 1,\ 0\} \times \{L,\ S,\ R\}$$
 where $\{\mathrm{q}0,\ \dots\ ,\ \mathrm{q}n\}$ -- is a set of states, 0 and 1 is alphabet of machine, and each element is a command.
 \end{definition}
 
-We say that function bacn be computed by a Turing machine if this tunction belongs to jthis class. It has been demonstrated that all algoritms can be presented as a Turing machine. Lemma Charch.
+We say that function can be computed by a Turing machine if this function belongs to this class. It has been demonstrated that all algorithms can be presented as a Turing machine. Lemma Charch.
 
 \section{A model of turing machine}
 \textbf{\large I}t is unbelievable that all algorithms and function, regardless of their complexity, can be represented in such easy and intuitive 'mechanical' model. This is an ultimate computing machine.
@@ -109,14 +118,71 @@ This mechanical process of computing a function attracted my interest and I buil
 The application consists of a few different modules. The most important part is TuringCore.py where all actions by machine are being performed. Other deal with design, input data, visualization and etc. Turing created his machine hypothetically, but now we can operate with its analog.
 
 \section{How to work with application}
-\textbf{\large T}he program requires Python 3.5. To run the app open TuringMachie.py in IDLE and click 'Tun Module" in top menu. The navigation window wit pop up . The top element is a navigation bar, it has 3 indicators. This bar is made to assist a user through the process. A first indicator lights up when a user selected a turing code. Second, indicates that Turing machine has a compiled version of code. Which will be executed on input numbers. The last indicator turns on after we choose input values.
+\textbf{\large T}he program requires Python 3.5. To run the app open TuringMachie.py in IDLE and click 'Tun Module" in top menu. The navigation window wit pop up . The top element is a navigation bar, it has 3 indicators. This bar is made to assist a user through the process. A first indicator lights up when a user selected a Turing code. Second, indicates that Turing machine has a compiled version of code. Which will be executed on input numbers. The last indicator turns on after we choose input values.
 
 The next section is a where we gather all information that is needed to run the machine: Code and Values. After we selected that, all indicators should turn green. It means that we are ready to start the machine. Now we want to click 'Run' button.
 
 After a Turing program have executed, we can navigate on a tape with Left and Right button to read the result.
 
 \section{Further research on Turing Machines}
-\textbf{\large E}ach Turing machine is defined by its code. By selecting different input values we obtain some output. There are two cases either this result is a tape with finite number of 1 and 0; or machine could never stop. Either way we have an infinite set $\{(input, output), for all 'input'\}$. Although, this set equally defines a turing machine, this method is not finite. We can't store this set in memory.
+\subsection{Turing set}
+\textbf{\large E}ach Turing machine is defined by its code. By selecting different input values we obtain some output. There are two cases either this result is a tape with finite number of 1 and 0; or machine could never stop. Either way we have an infinite set $\{(input,\ output), \forall\ 'input'\}$. Although, this set equally defines a Turing machine, this method is not finite. We can't store this set in memory.
+
+\begin{definition}
+The set $\mathbi{T}\subset\bigcup\limits_{k=1}^{\infty}\mathbb{N}^k$ is called a \textbf{Turing set} if there exists a Turing program whose output set equals to $T$.
+\end{definition}
+
+We can represent an infinite set of vectors with some finite \em{Turing code}. This set has to be a \em{Turing set}.
+
+\subsection{Acquire a Turing code}
+\textbf{\large G}iven some Turing machine $M$. Its code is unknown to us. But we still can use the machine. 
+
+Let $\mathbi{I}\subset\bigcup\limits_{k=1}^{\infty}\mathbb{N}^k$ be an \emph{input} set.
+
+Based on some set of results $\{(input,\ output):\  \forall\ input\in \mathbi{I}\}$ we might draw some assumptions on what the machine actually does. We can definitely build a machine $\hat{M}$. Can we guarantee that machine $M$ will be identical to its emulation $\hat{M}$? Another question is: will $M$ and $\hat{M}$ have the same result on $\bigcup\limits_{k=1}^{\infty}\mathbb{N}^k$?
+
+Before formulating a hypothesis, we need a definition.
+
+\begin{definition}
+Turing machine is called \textbf{irreducible} if we can not obtain another Turing machine which has the same input-output set but with shorter Turing code. 
+\end{definition}
+
+\textsc{Hypothesis}: If $M$ and $\hat{M}$ are \emph{irreducible}, their Turing code have the same length $n$, and they produce the same result on $\{1,\ \dots\ ,\ 2^n\}\subset\mathbb{N}$. Then $M$ is equivalent to $\hat{M}$.
+
+\subsection{Possible Application in Artificial Intelligence}
+I remember playing in the game. We had 4 teams and 2-4 members in each team. The rules were: each team has to write a coherent story, using words that were given one per minute (those words were completely unrelated). The winner is a team with the most interesting story. It also should make sense.
+
+My team had 2 players. It was just me and a girl. We were trying our best to relate those words in our story. Somewhere at the end of the game, the word 'temple' came up. It didn't fit in our fairy-tale at all. I began to build the most feasible version of further developing of our story. And I proposed it.
+
+Obviously, the way I made the word fit in a story sounded quirky. My teammate didn't like it, so she started to think about continuation aloud. She exactly repeated my chain of thoughts, and \emph{arrived to the same result} as I did. We ended up having the same continuation of our story, despite we thought independently
+
+It may be just a coincidence or we think in similar way. To the extent when we tend to align our story to the new word in the same way. It may demonstrate that we had the same comprehension of the game rules and it may be a sign that we have similar mindset. Now, what does that have to do with AI?
+
+If only we can make some robot to comprehend rules and enrich its mindset with ideas and experience, we can expect him to make identical conclusions that a human would do.
+
+With that being said, lets consider some Turing machine with unknown code. We can draw an analogy between \emph{original code} of a Turing machine and \emph{mindset} of a human. Our task is to obtain a code. Once it is done, we are able to run this code in order to predict what Turing machine would do.
+
+As it was mentioned in \textsf{Turing set} section, we may build at least some approximation of a Turing machine based on its input-output data.
+
+\vspace{5mm}
+\begin{addmargin}[3em]{3em}
+\tab
+\textsc{Facebook Likes Analogy.} There is a person that sometimes hits on a like button under some posts. Wouldn't that be nice to supply posts that the person is more likely to 'like'?
+
+In order to do that we need to create a somewhat accurate virtual representation of that particular person. And than test all posts on their 'likeability' on the model, before supplying it to a real person. If an accurate model likes a post, chances are a person would like it.
+
+We can build a model of a real person by analyzing input-output data. In that case the data is presented in this way: $$\{(post,\ like):\ post\in Posts,\ like\in\{Yes,\ No\}\}.$$
+
+It is necessary to describe a post in some terms. We want to distinguish them from each other, likewise to point out similarities between them.
+
+After that is done, we would like to convert this data set in Turing input-output set. Based on that set, we will create a Turing code, in the way it was explained in Turing set \textsf{Turing set} section.
+
+This will be a Turing model of our facebook user. 
+\end{addmargin}
+
+\begin{remark}
+Even though an emulation of a our behavior with Turing machines doesn't appear like an accurate representation of humans with all our enormous complexity, I still believe it is a good start.
+\end{remark}
 
 % \newfontfamily{\A}{Geeza Pro}
 % \newfontfamily{\H}[Scale=0.9]{Lucida Grande}
