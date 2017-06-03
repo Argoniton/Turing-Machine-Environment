@@ -1,0 +1,129 @@
+% XeLaTeX can use any Mac OS X font. See the setromanfont command below.
+% Input to XeLaTeX is full Unicode, so Unicode characters can be typed directly into the source.
+
+% The next lines tell TeXShop to typeset with xelatex, and to open and save the source with Unicode encoding.
+
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+
+\documentclass[12pt]{article}
+\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   % ... or a4paper or a5paper or ... 
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage{amssymb}
+\newcommand\tab[1][-1em]{\hspace*{#1}}
+
+\usepackage{listings}
+
+\usepackage{scrextend}
+
+% Will Robertson's fontspec.sty can be used to simplify font choices.
+% To experiment, open /Applications/Font Book to examine the fonts provided on Mac OS X,
+% and change "Hoefler Text" to any of these choices.
+
+\usepackage{fontspec,xltxtra,xunicode}
+\usepackage{amsthm}
+\newtheorem*{remark}{Remark}
+\newtheorem{definition}{Definition}[section]
+
+\title{Turing Machine}
+\author{Artemii Yanushevskyi}
+\date{}                                           % Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+
+\abstract{The second half of twentieth century is characterized by a rapid bloom of technology. It was influenced primarily by mathematicians who tried to relate non-mathematical objects, such as mechanisms, with purely mathematical, like mathematical logic. Allan Turing was asked, what is a ‘mechanical’ process, he replied, it is the ’process’ which can be done by a machine. It is a reasonable answer, but how would we define a ‘machine’ then? Turing decided to elaborate such general notion of a machine. This contributed to the appearance of machine that we call in his name: Turing machine.}
+
+\section{Intuitive definition}
+\textbf{\large L}ets assume that we have a creature that can observe a single place on infinite tape. Every place has either 1 or 0 on it. This creature can move a tape to left or right. Additionally, the creature has a number of states, which include terminal state ‘$\mathrm{q}0$’.
+
+We will call this \emph{Turing machine}.
+
+The input is a tape. Despite the tape is infinite, it should have just finite number of 1.
+We can represent each vector $x\in\mathbb{N}^k$ as a string of $k$ blocks with $(x_i+1)$ 1. Those blocks are separated with 0. 
+ 
+\begin{addmargin}[3em]{3em}
+\tab
+\textsc{Example.} The vector $x=(3,\ 2,\ 1,\ 0)\in\mathbb{N}^4$ is represented on a tape
+
+{\large $$\dots 0001111011101101000\dots$$}
+
+\end{addmargin}
+
+The machine performs basic operations: check a number on a tape, move left or right, and change its state. The rules which guide the machine is presented in a list of commands, which is called Turing code. What the creature will do next depends on two factors: what it sees on a tape at the moment and what state it has.
+ 
+\begin{addmargin}[3em]{3em}
+\tab
+\textsc{Example.} Now we will make a typical single step of the machine. After, we will write a command that corresponds to it. In case creature
+\begin{enumerate}
+\item has the state $\mathrm{q}3$ and \item sees 0 on a place,
+\end{enumerate}
+the creature should: 
+\begin{enumerate}
+\item change a number on a place from 0 to 1 \item move a strip left in order to face with a place to the right side \item change a state to $\mathrm{q}3$. 
+\end{enumerate}
+
+
+The command that defines this process is the following:
+
+{\large $$(\mathrm{q}2, 1)\ ->\ (\mathrm{q}2, 1, \mathrm{R})$$}
+\end{addmargin}
+Usually the starting position is a first 1. The starting state is $\mathrm{q}1$, we will call it terminal state.
+% a command
+Below is an example of code, that adds $a$ and $b$. The input vector $(a,\ b)\in\mathbb{N}^2$:
+
+\begin{lstlisting}
+(q1, 1) -> (q1, 1, R)
+(q1, 0) -> (q2, 1, R)
+(q2, 1) -> (q2, 1, R)
+(q2, 0) -> (q3, 0, L)
+(q3, 0) -> (q0, 0, L)
+(q3, 1) -> (q4, 0, L)
+(q4, 1) -> (q5, 0, L)
+(q5, 1) -> (q5, 1, L)
+(q5, 0) -> (q0, 0, S)
+\end{lstlisting}
+
+The result line will consist of $(a+b+1)$ 1 in a single row, which represents $a+b$.
+\begin{remark} When machine acquires state $\mathrm{q}0$, it stops. After machine stops we can read the output row.
+\end{remark}
+
+\section{Mathematical definition}
+\textbf{\large T}he intuitive defintiton given above boils down to a specific set of functions. 
+\begin{definition}
+Turing machine is a map
+$$ M:\{\mathrm{q}0,\ \dots\ ,\ \mathrm{q}n\} \times \{ 1,\ 0\} \rightarrow \{\mathrm{q}0,\ \dots\ ,\ \mathrm{q}n\} \times \{ 1,\ 0\} \times \{L,\ S,\ R\}$$
+where $\{\mathrm{q}0,\ \dots\ ,\ \mathrm{q}n\}$ -- is a set of states, 0 and 1 is alphabet of machine, and each element is a command.
+\end{definition}
+
+We say that function bacn be computed by a Turing machine if this tunction belongs to jthis class. It has been demonstrated that all algoritms can be presented as a Turing machine. Lemma Charch.
+
+\section{A model of turing machine}
+\textbf{\large I}t is unbelievable that all algorithms and function, regardless of their complexity, can be represented in such easy and intuitive 'mechanical' model. This is an ultimate computing machine.
+
+This mechanical process of computing a function attracted my interest and I built a a real model of an abstract Turing machine, the only difference is that the size of a tape is restricted by a computer RAM memory. It is estimated to be ... 
+
+The application consists of a few different modules. The most important part is TuringCore.py where all actions by machine are being performed. Other deal with design, input data, visualization and etc. Turing created his machine hypothetically, but now we can operate with its analog.
+
+\section{How to work with application}
+\textbf{\large T}he program requires Python 3.5. To run the app open TuringMachie.py in IDLE and click 'Tun Module" in top menu. The navigation window wit pop up . The top element is a navigation bar, it has 3 indicators. This bar is made to assist a user through the process. A first indicator lights up when a user selected a turing code. Second, indicates that Turing machine has a compiled version of code. Which will be executed on input numbers. The last indicator turns on after we choose input values.
+
+The next section is a where we gather all information that is needed to run the machine: Code and Values. After we selected that, all indicators should turn green. It means that we are ready to start the machine. Now we want to click 'Run' button.
+
+After a Turing program have executed, we can navigate on a tape with Left and Right button to read the result.
+
+\section{Further research on Turing Machines}
+\textbf{\large E}ach Turing machine is defined by its code. By selecting different input values we obtain some output. There are two cases either this result is a tape with finite number of 1 and 0; or machine could never stop. Either way we have an infinite set $\{(input, output), for all 'input'\}$. Although, this set equally defines a turing machine, this method is not finite. We can't store this set in memory.
+
+% \newfontfamily{\A}{Geeza Pro}
+% \newfontfamily{\H}[Scale=0.9]{Lucida Grande}
+% \newfontfamily{\J}[Scale=0.85]{Osaka}
+
+% Here are some multilingual Unicode fonts: this is Arabic text: {\A السلام عليكم}, this is Hebrew: {\H שלום}, 
+% and here's some Japanese: {\J 今日は}.
+
+
+\end{document}  
